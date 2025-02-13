@@ -1,0 +1,74 @@
+
+<!-- list.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>Room Management System</title>
+</head>
+<body>
+
+<div class="container">
+  <center>
+    <h1>Room Management System</h1>
+  </center>
+  <!-- Search Form -->
+  <form th:action="@{/rooms/search}" method="get">
+    <label for="search">Search by Room Number:</label>
+    <input type="text" id="search" name="roomNumber"
+           placeholder="Enter room number"
+           th:value="${searchQuery}"> <!-- Retain the search query -->
+    <button type="submit">Search</button>
+  </form>
+
+  <form th:action="@{/rooms}" method="get">
+    <button type="submit" class="search-button">Show All Rooms Sorted by ID</button>
+  </form>
+
+  <!-- Show Available Rooms Button -->
+  <form th:action="@{/rooms/showAvailable}" method="get">
+    <button type="submit" class="search-button">Show Available Rooms</button>
+  </form>
+  <form th:action="@{/rooms/sortByArea}" method="get">
+    <button type="submit" class="search-button">Sort by Area</button>
+  </form>
+  <h2>Dorm Room List</h2>
+
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Room name</th>
+      <th>Area</th>
+      <th>Floor</th>
+      <th>Bed amount</th>
+      <th>Available</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="room : ${rooms}">
+      <td th:text="${room.id}"></td>
+      <td th:text="${room.roomNumber}"></td>
+      <td th:text="${room.area}"></td>
+      <td th:text="${room.floor}"></td>
+      <td th:text="${room.beds}"></td>
+      <td th:text="${room.available == true ? 'Yes' : 'No'}"></td>
+      <td><a th:href="@{/rooms/edit/{id}(id=${room.id})}">Edit</a></td>
+      <td><a th:href="@{/rooms/delete/{id}(id=${room.id})}">Delete</a></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <form th:action="@{/rooms/add}" method="get">
+    <button type="submit" class="search-button">Add Room</button>
+  </form>
+
+
+</div>
+
+</body>
+</html> 

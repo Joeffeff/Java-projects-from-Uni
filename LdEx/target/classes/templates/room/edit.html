@@ -1,0 +1,44 @@
+
+<!-- edit.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/styles.css">
+  <title>Edit Room</title>
+</head>
+<body>
+
+<div class="container">
+  <center>
+    <h1>Room Management System</h1>
+  </center>
+
+  <h2>Edit Room</h2>
+
+  <form th:action="@{/rooms/edit/{id}(id=${room.id})}" th:object="${room}" method="post">
+    <input type="hidden" th:field="*{id}">
+
+    <label for="roomnumber">Room name:</label>
+    <input type="text" id="roomnumber" name="roomnumber" th:field="*{roomNumber}" required>
+
+    <label for="area">Area(m^2):</label>
+    <input type="number" id="area" name="area" th:field="*{area}" step="any" required>
+    <label for="floor">Floor:</label>
+    <input type="number" id="floor" name="floor" th:field="*{floor}" required>
+    <label for="beds">Amount of beds:</label>
+    <input type="number" id="beds" name="beds" th:field="*{beds}" required>
+    <label for="available">Available:</label>
+    <input type="checkbox" id="available" name="available" th:checked="${room.available}" value="true">
+    <button type="submit">Save</button>
+  </form>
+
+  <form th:action="@{/rooms}" method="get">
+    <button type="submit" class="search-button">Back to List</button>
+  </form>
+
+</div>
+
+</body>
+</html>
